@@ -53,12 +53,12 @@ const addConfig = ({ app_name, env_file, appdir }) => {
     const variables = require("dotenv").parse(env);
     const newVars = [];
     for (let key in variables) {
-      newVars.push(key + "=" + variables[key]);
+      newVars.push(key + "=" + variables[key].replace(/"/g, '\\"'));
     }
     configVars = [...configVars, ...newVars];
   }
   if (configVars.length !== 0) {
-    execSync(`heroku config:set --app=${app_name} ${configVars.join(" ")}`);
+    execSync(`heroku config:set --app=${app_name} "${configVars.join(" ")}"`);
   }
 };
 
