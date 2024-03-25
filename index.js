@@ -225,7 +225,13 @@ if (heroku.dockerBuildArgs) {
     console.log("Successfully logged into heroku");
 
     addRemote(heroku);
-    addConfig(heroku);
+    try {
+      addConfig(heroku);
+    } catch (error) {
+      core.setFailed(
+        "Failed to run heroku:config:set command. Check if you have variables with special characters (\" and ')."
+      );
+    }
 
     deploy(heroku);
 
