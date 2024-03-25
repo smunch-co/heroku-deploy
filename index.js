@@ -228,8 +228,8 @@ if (heroku.dockerBuildArgs) {
     try {
       addConfig(heroku);
     } catch (error) {
-      core.setFailed(
-        "Failed to run heroku:config:set command. Check if you have variables with special characters (\" and ')."
+      throw new Error(
+        "Failed to run heroku:config:set command. Check if you have variables with special characters that are nor properly escaped (' \" #)."
       );
     }
 
